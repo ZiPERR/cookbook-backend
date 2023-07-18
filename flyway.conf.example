@@ -1,4 +1,4 @@
 flyway.url=jdbc:postgresql://localhost:5432/cookbook_db
 flyway.schemas=cookbook_db
 flyway.user=postgres
-flyway.password=1234
+flyway.password=postgres
