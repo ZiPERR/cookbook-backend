@@ -1,6 +1,12 @@
 version: '3.9'
 
+networks:
+
+  cookbook-network:
+    driver: bridge
+
 services:
+
   postgres:
     image: 'postgres:alpine'
     container_name: 'postgresql'
@@ -9,5 +15,24 @@ services:
     ports:
       - "127.0.0.1:5432:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
+    networks:
+      - 'cookbook-network'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'cookbook-app'
+    ports:
+      - "8080:8080"
+    networks:
+      - 'cookbook-network'
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://postgres:5432/${POSTGRES_USER}'
+      SPRING_DATASOURCE_USERNAME: '${POSTGRES_USER}'
+      SPRING_DATASOURCE_PASSWORD: '${POSTGRES_PASSWORD}'
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
