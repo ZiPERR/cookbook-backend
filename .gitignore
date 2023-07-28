@@ -1,5 +1,7 @@
 application.properties
 flyway.conf
+.env
+postgres-data/
 
 HELP.md
 .gradle

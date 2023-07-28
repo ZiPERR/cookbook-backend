@@ -22,6 +22,11 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
+tasks.bootJar {
+    archiveBaseName.set("cookbook")
+    archiveVersion.set("")
+}
+
 
 repositories {
     mavenCentral()
