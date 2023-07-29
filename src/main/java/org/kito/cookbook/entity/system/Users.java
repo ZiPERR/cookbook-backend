@@ -4,15 +4,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.kito.cookbook.entity.Recipe;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "admin_user",
+@Table(name = "users",
         uniqueConstraints = @UniqueConstraint(
                 name = "idx_user_email",
                 columnNames = "email"
@@ -20,7 +22,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AdminUser implements UserDetails {
+public class Users implements UserDetails {
 
     @Id
     @Column(name = "id")
@@ -38,10 +40,13 @@ public class AdminUser implements UserDetails {
 
     @ManyToOne
     @JoinColumn(
-            name = "admin_role_id",
-            foreignKey = @ForeignKey(name = "fk_admin_user_admin_role")
+            name = "role_id",
+            foreignKey = @ForeignKey(name = "fk_users_role")
     )
-    private AdminRole adminRole;
+    private Role role;
+
+    @OneToMany(mappedBy = "userRecipe")
+    private Set<Recipe> recipes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -81,8 +86,8 @@ public class AdminUser implements UserDetails {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AdminUser user = (AdminUser) o;
-        return active == user.active && Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        Users users = (Users) o;
+        return active == users.active && Objects.equals(id, users.id) && Objects.equals(email, users.email) && Objects.equals(password, users.password);
     }
 
     @Override

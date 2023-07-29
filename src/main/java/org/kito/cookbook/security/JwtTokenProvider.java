@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
-import org.kito.cookbook.entity.system.AdminUser;
+import org.kito.cookbook.entity.system.Users;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -41,13 +41,13 @@ public class JwtTokenProvider {
 
 
     public String generateToken(Authentication authentication, boolean rememberMe) {
-        AdminUser user = (AdminUser) authentication.getPrincipal();
+        Users users = (Users) authentication.getPrincipal();
 
-        return generateToken(user, rememberMe);
+        return generateToken(users, rememberMe);
     }
 
-    public String generateToken(AdminUser user, boolean rememberMe) {
-        return generateToken(user.getEmail(), rememberMe);
+    public String generateToken(Users users, boolean rememberMe) {
+        return generateToken(users.getEmail(), rememberMe);
     }
 
     public String generateToken(String email) {
@@ -58,8 +58,8 @@ public class JwtTokenProvider {
         return generateToken(authentication, false);
     }
 
-    public String generateToken(AdminUser user) {
-        return generateToken(user, false);
+    public String generateToken(Users users) {
+        return generateToken(users, false);
     }
 
     public String getUserEmailFromJWT(String token) {

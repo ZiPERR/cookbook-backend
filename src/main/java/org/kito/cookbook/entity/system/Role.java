@@ -9,11 +9,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "admin_role")
+@Table(name = "role")
 @Getter
 @Setter
 @NoArgsConstructor
-public class AdminRole {
+public class Role {
 
     @Id
     @Column(name = "id")
@@ -23,8 +23,8 @@ public class AdminRole {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "adminRole", fetch = FetchType.EAGER)
-    private Set<AdminUser> users;
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
+    private Set<Users> users;
 
     @Override
     public boolean equals(Object o) {
@@ -34,8 +34,8 @@ public class AdminRole {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AdminRole adminRole = (AdminRole) o;
-        return Objects.equals(id, adminRole.id) && Objects.equals(name, adminRole.name);
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) && Objects.equals(name, role.name);
     }
 
     @Override
