@@ -18,8 +18,6 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //TODO: measurement, amount
-
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -27,11 +25,11 @@ public class Ingredient {
     @JoinTable(name = "recipe_ingredients",
             joinColumns = {@JoinColumn(name = "ingredient_id")},
             inverseJoinColumns = {@JoinColumn(name = "recipe_id")})
-    private Set<Recipe> recipeIngredient;
+    private Set<Recipe> recipes;
 
     @OneToOne
     @JoinTable(name = "ingredient_files",
             joinColumns = @JoinColumn(name = "ingredient_id"),
             inverseJoinColumns = @JoinColumn(name = "file_id"))
-    private File ingredientFile;
+    private File file;
 }

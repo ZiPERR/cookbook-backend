@@ -23,12 +23,12 @@ public class File {
     @Column(name = "path", nullable = false)
     private String path;
 
-    @OneToOne(mappedBy = "ingredientFile")
+    @OneToOne(mappedBy = "file")
     private Ingredient ingredient;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "recipe_files",
             joinColumns = {@JoinColumn(name = "file_id")},
             inverseJoinColumns = {@JoinColumn(name = "recipe_id")})
-    private Recipe recipeFile;
+    private Recipe recipe;
 }

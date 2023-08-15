@@ -58,13 +58,19 @@ public class Recipe {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private Users userRecipe;
+    private Users user;
 
-    @OneToMany(mappedBy = "recipeFile")
+    @OneToMany(mappedBy = "recipe")
     private Set<File> files;
 
-    @ManyToMany(mappedBy = "recipeIngredient")
+    @ManyToMany(mappedBy = "recipes")
     private Set<Ingredient> ingredients;
+
+    @ManyToMany
+    @JoinTable(name = "favorite_recipes",
+            joinColumns = {@JoinColumn(name = "recipe_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<Users> favoriteBy;
 
     @Override
     public boolean equals(Object o) {

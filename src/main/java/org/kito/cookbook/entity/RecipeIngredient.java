@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.kito.cookbook.entity.ids.RecipeIngredientId;
 
 @Entity
 @Table(name = "recipe_ingredients")
 @Getter
 @Setter
 @NoArgsConstructor
+@IdClass(RecipeIngredientId.class)
 public class RecipeIngredient {
 
     @Id
@@ -21,8 +23,8 @@ public class RecipeIngredient {
     @Column(name = "ingredient_id", nullable = false)
     private Integer ingredientId;
 
-    @Column(name = "ingredient_amount", nullable = false)
-    private Double amount;
+    @Column(name = "unit_value", nullable = false)
+    private Double unitValue;
 
     @OneToOne
     private Unit unit;

@@ -45,8 +45,11 @@ public class Users implements UserDetails {
     )
     private Role role;
 
-    @OneToMany(mappedBy = "userRecipe")
+    @OneToMany(mappedBy = "user")
     private Set<Recipe> recipes;
+
+    @ManyToMany(mappedBy = "favoriteBy")
+    private Set<Recipe> favoriteRecipes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
